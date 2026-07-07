@@ -7,18 +7,30 @@ on:
 
 env:
   APP_NAME: cron-ticker
-  NODE_VERSION: "20"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Variables a nivel del job
+    env:
+      BUILD_DIR: dist
+      # Agregar la variable Node Version 24
+      NODE_VERSION: 24
+
     steps:
-      - name: Run actions/checkout@v4
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Show Variables
-        run: echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
+        run: |
+          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
 
+      - name: Show Github Variables
+        run: |
+          echo "App Version: ${{ vars.APP_VERSION }}"
+
+      # Variables a nivel del step
       - name: Build
-        run: node scripts/build.js
+        run: npm run build
+        env:
+          APP_VERSION: '2.0.0'
