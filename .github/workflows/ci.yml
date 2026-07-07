@@ -15,15 +15,13 @@ jobs:
     # Variables a nivel del job
     env:
       BUILD_DIR: dist
-      # Agregar la variable Node Version 24
-      NODE_VERSION: 24
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Show Variables
         run: |
-          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
+          echo "App: ${{ env.APP_NAME }}, Node: ${{ vars.NODE_VERSION }}"
 
       - name: Show Github Variables
         run: |
